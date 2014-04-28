@@ -1,0 +1,20 @@
+{
+  "name": "rtnetsrvredis",
+  "version": "0.0.1",
+  "description": "Connect a Redis PubSub channel to a primus room",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Costas Kirgoussios",
+  "license": "MIT",
+  "dependencies": {
+    "bunyan": "^0.22.3",
+    "express": "^4.1.0",
+    "hiredis": "^0.1.16",
+    "primus": "^2.2.0",
+    "redis": "^0.10.1",
+    "sync": "^0.2.2",
+    "ws": "^0.4.31"
+  }
+}

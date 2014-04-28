@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+  <meta charset=utf-8>
+    <style>
+      body {
+        font-family: "Helvetica Neue", helvetica, arial;
+        padding: 15px;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      ul li {
+        line-height: 1.4;
+      }
+    </style>
+
+<script src="/primus/primus.js"></script>
+    <script>
+        primus = new Primus();
+        primus.on('error', function error(err) {
+            alert('An unknown error has occured <code>' + err.message + '</code>');
+        });
+        primus.on('data', function(d) {
+            var li = document.createElement('li');
+            li.innerHTML = JSON.stringify(d);
+            document.querySelector('#pings').appendChild(li);
+            console.log(d);
+        });
+        primus.on('open', function() {
+            var li = document.createElement('li');
+            li.innerHTML = "Connection opened";
+            document.querySelector('#pings').appendChild(li);
+            console.log("Connection opened");
+            primus.write({command: 'join', room: 'time'});
+        });
+        primus.on('reconnecting', function(opts) {
+            var li = document.createElement('li');
+            li.innerHTML = 'Reconnecting in ' + opts.timeout + ' ms.' + 'This is attempt ' + opts.attempt + ' out of ' + opts.retries;
+            document.querySelector('#pings').appendChild(li);
+            console.log('Reconnecting in %d ms', opts.timeout);
+            console.log('This is attempt %d out of %d', opts.attempt, opts.retries);
+        });
+        
+    </script>
+  </head>
+  <body>
+    <h1>Pings</h1>
+    <ul id='pings'></ul>
+  </body>
+</html>
